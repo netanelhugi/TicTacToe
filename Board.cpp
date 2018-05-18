@@ -17,10 +17,10 @@ Board::Board(int n){
 //destractor
     Board::~Board(){
         //free memory
-        for(int i=0; i<boardSize;i++){
-            delete[] boardMat[i];
-        }
-        delete[] boardMat;
+        // for(int i=0; i<boardSize;i++){
+        //     delete[] BoardMat[i];
+        // }
+        // delete[] BoardMat;
     }
 
 int Board::size() const {
