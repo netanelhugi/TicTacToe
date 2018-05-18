@@ -5,7 +5,6 @@ using namespace std;
 
 Board::Board(int n){
         boardSize = n;
-		// operator=('.');
 
         // create&allocat matrix of BoardChar's
         BoardMat = new BoardChar*[n];
@@ -14,6 +13,15 @@ Board::Board(int n){
             BoardMat[i] = new BoardChar[boardSize];
         }
 	}
+
+//destractor
+    Board::~Board(){
+        //free memory
+        for(int i=0; i<boardSize;i++){
+            delete[] boardMat[i];
+        }
+        delete[] boardMat;
+    }
 
 int Board::size() const {
 		return boardSize;
