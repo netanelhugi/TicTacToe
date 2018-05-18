@@ -8,100 +8,42 @@ using namespace std;
 
 
 class TicTacToe {
-	Board _board;
-	uint _maxSteps;
-	Player* _winner;
+	Board gameBoard;
+	int size;
+	Player* Pwinner;
 
-	/**
-	 * Return true if row y is full with char c.
-	 */
-	bool fullRow(int y, char c) {
-		for (int x=0; x<_board.size(); ++x) {
-			if (_board[{y,x}]!=c)
-				return false;
-		}
-		return true;
-	}
+	public:
+	TicTacToe(int n);
+	void play(Player& pX, Player& pO);
+	const Board& board() const;
+	const Player& winner() const;
+	void nextMove(Player& p, Player& other);
+	bool checkWin(char c, BoardIndex bi);
+	bool checkRow(char c, int i);
+	bool checkCol(char c, int j);
+	bool checkDiag(char c,int i,int j);
 
-	/**
-	 * Return true if row y is full with char c.
-	 */
-	bool fullCol(int x, char c) {
-		for (int y=0; y<_board.size(); ++y) {
-			if (_board[{y,x}]!=c)
-				return false;
-		}
-		return true;
-	}
-
-	bool isWinner(char c) {
-		// Check winner in cols:
-		for (int x=0; x<_board.size(); ++x) {
-			if (fullCol(x,c)) {
-				return true;
-			}
-		}
-
-		// Check winner in rows:
-		for (int y=0; y<_board.size(); ++y) {
-			if (fullRow(y,c)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	void playAndVerify(Player& currentPlayer, Player& otherPlayer) {
-		Coordinate move{0,0};
-		try {
-			Board boardCopy = _board;
-			move = currentPlayer.play(boardCopy);
-		} catch (...) {
-			_winner = &otherPlayer;
-		}
-
-		if (_board[move]=='.') {
-			_board[move] = currentPlayer.getChar();
-		} else { // illegal move - other player wins
-			_winner = &otherPlayer;
-		}
-
-		if (isWinner(currentPlayer.getChar())) {
-			_winner = &currentPlayer;
-		}
-	}
 
 	
-public:
-	TicTacToe(int size): 
-		_board(size), 
-		_maxSteps(size*size),
-		_winner(nullptr) {}
 
-	void play(Player& xPlayer, Player& oPlayer) {
-		_winner = nullptr;
-		xPlayer.setChar('X');
-		oPlayer.setChar('O');
-		_board = '.';  // initialize board to empty
-		for (uint i=0; i<_maxSteps; ++i) {
-			playAndVerify(xPlayer, oPlayer);
-			if (_winner) break;
-			playAndVerify(oPlayer, xPlayer);
-			if (_winner) break;
-		}
-	}
 
-	void printResults() const {
-		cout << "And the winner is " << winner().name() << ", playing as " << winner().getChar() << "!" << endl;
-		cout << "The final board is " << endl << board() << endl;
-	}
+	// bool isWinner(char c) {
+	// 	// Check winner in cols:
+	// 	for (int x=0; x<gameBoard.size(); ++x) {
+	// 		if (fullCol(x,c)) {
+	// 			return true;
+	// 		}
+	// 	}
 
-	const Board& board() const { 
-		return _board; 
-	}
+	// 	// Check winner in rows:
+	// 	for (int y=0; y<gameBoard.size(); ++y) {
+	// 		if (fullRow(y,c)) {
+	// 			return true;
+	// 		}
+	// 	}
 
-	const Player& winner() const {
-		return *_winner;
-	}
+	// 	return false;
+	// }
+
+
 };

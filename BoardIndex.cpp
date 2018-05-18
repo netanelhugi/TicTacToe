@@ -10,10 +10,17 @@ using namespace std;
     }
 
     //BoardIndex constructor
+    BoardIndex::BoardIndex(uint i0,uint j0){
+        this->i = i0;
+        this->j = j0;
+    }
+
+    //BoardIndex constructor
     BoardIndex::BoardIndex(int i0,int j0){
         this->i = i0;
         this->j = j0;
     }
+
 
     //BoardIndex copy constructor
     BoardIndex::BoardIndex(const BoardIndex& other){

@@ -9,8 +9,6 @@ BoardChar::BoardChar(char& c):sign(c){
 }
 
 
-
-
 BoardChar& BoardChar::operator=(char c) {
 			
 		if (c!='.' && c!='X' && c!='O'){

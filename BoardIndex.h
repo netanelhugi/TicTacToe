@@ -1,8 +1,5 @@
 #pragma once
-
 #include <iostream>
-// #include "IllegalCharException.hpp"
-
 using namespace std;
 
 /**
@@ -12,10 +9,11 @@ using namespace std;
 class BoardIndex{
     
     public:
-    int i;
-    int j;
+    uint i;
+    uint j;
     //constructors
     BoardIndex();
+    BoardIndex(uint i0,uint j0);
     BoardIndex(int i0,int j0);
     BoardIndex(const BoardIndex& bi);//copy
     BoardIndex& operator=(const BoardIndex& other);
