@@ -28,8 +28,9 @@ int main() {
 	YXPlayer player2;
 	IllegalPlayer player3;
 	ExceptionPlayer player4;
+	ExceptionPlayer player5;
 
-	// playAndPrintResults(game, player1, player2);
+	playAndPrintResults(game, player4, player1);
 	// // /*
 	// // 	The final board is 
 	// // 	XXXX
@@ -91,23 +92,23 @@ int main() {
 	// // */
 
 
-	Champion champion;
-	playAndPrintResults(game, champion, player1);
-		// The winner is <your name>, playing as X!
-	playAndPrintResults(game, player1, champion);
-	// 	// The winner is <your name>, playing as O!
-	playAndPrintResults(game, champion, player2);
+	// Champion champion;
+	// playAndPrintResults(game, champion, player1);
 	// 	// The winner is <your name>, playing as X!
-	playAndPrintResults(game, player2, champion);
-	// 	// The winner is <your name>, playing as O!
-	playAndPrintResults(game, champion, player3);
-	// 	// The winner is <your name>, playing as X!
-	playAndPrintResults(game, player3, champion);
-	// 	// The winner is <your name>, playing as O!
-	playAndPrintResults(game, champion, player4);
-	// 	// The winner is <your name>, playing as X!
-	playAndPrintResults(game, player4, champion);
-	// 	// The winner is <your name>, playing as O!
+	// playAndPrintResults(game, player1, champion);
+	// // 	// The winner is <your name>, playing as O!
+	// playAndPrintResults(game, champion, player2);
+	// // 	// The winner is <your name>, playing as X!
+	// playAndPrintResults(game, player2, champion);
+	// // 	// The winner is <your name>, playing as O!
+	// playAndPrintResults(game, champion, player3);
+	// // 	// The winner is <your name>, playing as X!
+	// playAndPrintResults(game, player3, champion);
+	// // 	// The winner is <your name>, playing as O!
+	// playAndPrintResults(game, champion, player4);
+	// // 	// The winner is <your name>, playing as X!
+	// playAndPrintResults(game, player4, champion);
+	// // 	// The winner is <your name>, playing as O!
 
 	return 0;
 }

@@ -44,6 +44,7 @@ void TicTacToe::nextMove(Player& p, Player& other){
 		} 
 		catch (...) {
 			Pwinner = &other;
+			return;
 		}
 
 		if (gameBoard[next]=='.') {
