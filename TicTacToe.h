@@ -24,26 +24,5 @@ class TicTacToe {
 	bool checkDiag(char c,int i,int j);
 
 
-	
-
-
-	// bool isWinner(char c) {
-	// 	// Check winner in cols:
-	// 	for (int x=0; x<gameBoard.size(); ++x) {
-	// 		if (fullCol(x,c)) {
-	// 			return true;
-	// 		}
-	// 	}
-
-	// 	// Check winner in rows:
-	// 	for (int y=0; y<gameBoard.size(); ++y) {
-	// 		if (fullRow(y,c)) {
-	// 			return true;
-	// 		}
-	// 	}
-
-	// 	return false;
-	// }
-
 
 };
