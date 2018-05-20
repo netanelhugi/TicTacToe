@@ -14,20 +14,24 @@ class Champion: public Player {
 	}
 	const Coordinate play(const Board& board) override {
 
+		int n = board.size();
+
+
 		if(this->getChar()=='X'){
 
-			Coordinate c{i0,j0};
+			for(int i=0,j=0; i<n; i++,j++){
+					Coordinate c{i,j};
+					
 					if (board[c]=='.') {
-						i0++;
-						j0++;
 						return c;
 					}
+			}
+					
 	
 		}
 
 		else{
 
-			int n = board.size();
 
 			Coordinate c1{0,n-1};
 			Coordinate c2{n-1,0};
