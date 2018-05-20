@@ -15,7 +15,7 @@ class Board {
 
 public:
 	Board(int n);//constructor
-	// ~Board();//destructor
+	~Board();//destructor
 	int size() const;//get boardSize
 	Board& operator=(char c);//Operator to fill the matrix
 	char operator[] (BoardIndex c) const;
