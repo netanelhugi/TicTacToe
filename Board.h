@@ -22,6 +22,7 @@ public:
 	BoardChar operator[] (BoardIndex c);
 	char getBoardChar(int i,int j) const;
 
+	//output operator
 	friend ostream& operator<<(ostream& os, Board const& b);
 
 
@@ -39,8 +40,5 @@ public:
 			os << endl;
 		}
         
-        
-        
-
         return os;
     }

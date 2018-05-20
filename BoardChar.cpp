@@ -4,11 +4,12 @@ using namespace std;
 #include "BoardChar.h"
 #include "IllegalCharException.h"
 
+//constructor with char reference
 BoardChar::BoardChar(char& c):sign(c){
 	/*constructor*/
 }
 
-
+//assignment operator(for char)
 BoardChar& BoardChar::operator=(char c) {
 			
 		if (c!='.' && c!='X' && c!='O'){
@@ -18,6 +19,7 @@ BoardChar& BoardChar::operator=(char c) {
 		return *this;
 }
 
+//cast "toChar" operator
 BoardChar::operator char() const { 
     return sign; 
 }

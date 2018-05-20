@@ -42,7 +42,7 @@ void TicTacToe::nextMove(Player& p, Player& other){
 		try {
 			next = p.play(gameBoard);
 		} 
-		catch (...) {
+		catch (...) {//catch all type of exception
 			Pwinner = &other;
 			return;
 		}
