@@ -58,6 +58,27 @@ void TicTacToe::nextMove(Player& p, Player& other){
 		if(Cwin){
 			Pwinner = &p;
 		}
+
+		//for full board case
+		//check who is the 'O' player
+		bool OP;
+
+		if(p.getChar()=='O'){
+			OP = true;
+		}
+		else{
+			OP = false;
+		}
+
+		if(fullBoard()!=0){
+			if(OP==true){
+				Pwinner = &p;
+			}
+			else{
+				Pwinner = &other;
+			}
+		}
+		
 	}
 
 bool TicTacToe::checkWin(char c,BoardIndex bi){
@@ -73,7 +94,6 @@ bool TicTacToe::checkWin(char c,BoardIndex bi){
 	if(checkDiag(c,bi.i,bi.j)){
 			return true;
 	}
-
 
 	return false;
 }
@@ -145,5 +165,24 @@ bool TicTacToe::checkDiag(char c,int i,int j){
     return false;
     
     
+}
+
+bool TicTacToe::fullBoard(){
+
+	bool full = false;
+
+	for(int i=0; i<size; i++){
+		for(int j=0; j<size; j++){
+
+			BoardIndex bi{i,j};
+
+			if(gameBoard[bi]=='.'){
+				return false;
+			}
+		}
+	}
+
+	return true;
+
 }
 

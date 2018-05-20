@@ -22,6 +22,7 @@ class TicTacToe {
 	bool checkRow(char c, int i);
 	bool checkCol(char c, int j);
 	bool checkDiag(char c,int i,int j);
+	bool fullBoard();
 
 
 
