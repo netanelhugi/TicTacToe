@@ -24,14 +24,15 @@ BoardChar::operator char() const {
     return sign; 
 }
 
+//get char from the object
 char BoardChar::getChar(){
     return sign;
 }
 
+//set the char of the object
 void BoardChar::setChar(char c){
     sign = c;
 }
-
 
     //boardChar=boardChar operator
     BoardChar& BoardChar::operator=(const BoardChar& bc){

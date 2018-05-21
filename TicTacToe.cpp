@@ -4,10 +4,15 @@ using namespace std;
 #include "TicTacToe.h"
 
 
+/**
+ * constructor.
+ * init the board with int, and the pointer with null.
+ */
 TicTacToe::TicTacToe(int n): gameBoard(n), Pwinner(nullptr) {
 			this->size = n;
 }
 
+//game between two players
 void TicTacToe::play(Player& pX, Player& pO) {
 		gameBoard = '.';//init game board
 
@@ -27,14 +32,17 @@ void TicTacToe::play(Player& pX, Player& pO) {
 		}
 	}
 
+//get board
 const Board& TicTacToe::board() const { 
 		return gameBoard; 
 	}
 
+//get winner
 const Player& TicTacToe::winner() const {
 		return *Pwinner;
 	}
 
+//do the next step
 void TicTacToe::nextMove(Player& p, Player& other){
 
 		BoardIndex next;
@@ -82,6 +90,8 @@ void TicTacToe::nextMove(Player& p, Player& other){
 		
 	}
 
+
+//check if the game is over by the next functions
 bool TicTacToe::checkWin(char c,BoardIndex bi){
 
 	if(checkRow(c,bi.i)){
