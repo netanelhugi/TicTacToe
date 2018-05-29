@@ -59,59 +59,40 @@ inline istream &operator>>(istream  &input, Board &b){
 
 	Board* temp;
 	string str;
-	input >> str;
-	cout << "str: " << str;
+
+	char sign;
+	int rowSize = 0;
+	bool firstRowItr = true;
 
 
+	while(input.get(sign)){
 
-	// int first;
-	// cout << "test1";
+		if(sign=='\n'){
+			firstRowItr =false;
+		}
+		else{
+			str += sign;		
+		}
 
-	// cout << "first: " << first;
+		if(firstRowItr){
+			rowSize++;
+		}
+	}
 
-	// cout << "first: " << first << endl;
-	// int firLen = first.length();
-	// cout << "Flen: " << firLen << endl; 
+	temp = new Board(rowSize);
+	int ind = 0;
 
-	// string str;
-	// getline(input, str);
+	for(int i=0; i<rowSize; i++){
+		for(int j=0; j<rowSize; j++){
+			BoardChar bc(str[ind++]);
 
-	// cout << "str: " << str << endl;
-
-	 
-
-	//ifstream rows(inp); 
-
-	// int n = str.length();
-	// cout << "n=" << n << endl;
-
-	// char c;
-
-	// ifstream file(name); 
-
-	// temp = new Board(n);
-	
-
-	// for(int i=0; i<n; i++){
-	// 	for(int j=0; j<=n; j++){
-	// 		c = file.get();
-			
-	// 		if(j!=n){
-	// 			BoardChar bc(c);
-	// 			cout << bc;
-				
-	// 			temp->BoardMat[i][j] = bc;
-	// 		}
-	// 		else{
-	// 			cout << endl;
-	// 		}
+			temp->BoardMat[i][j] = bc;
 
 
-	// 	}
-	// }
+		}
+	}
 
-
-	// b = *temp;
+	b = *temp;
 
 	return input;
 
