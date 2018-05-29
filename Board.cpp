@@ -188,24 +188,24 @@ string Board::draw(int n){
 
                 if(getBoardChar(i,j)=='X'){
 
-                    cout << "i= " << i << " j= " << j << endl;
+                    // cout << "i= " << i << " j= " << j << endl;
 
                     int JstartX = (n-part*(BoardSize0-j))+(strokSize/2);
-                    cout << "Jstart: " <<JstartX << endl;
+                    // cout << "Jstart: " <<JstartX << endl;
                     int JendX = (n-part*(BoardSize0-j-1))-(strokSize/2);
-                    cout << "Jend: " <<JendX<< endl;
-
+                    // cout << "Jend: " <<JendX<< endl;
+// 
                     int JdiffX = JendX-JstartX;
                     // cout << "diff: " << JdiffX << endl;
 
 
                     int IstartX = (n-part*(BoardSize0-i))+(strokSize/2);
-                    cout << "Istart: " <<IstartX << endl;
+                    // cout << "Istart: " <<IstartX << endl;
                     int IendX = (n-part*(BoardSize0-i-1))-(strokSize/2);
-                    cout << "Iend: " <<IendX<< endl;
+                    // cout << "Iend: " <<IendX<< endl;
 
                     int IdiffX = IendX-IstartX;
-                    cout << "diff: " << IdiffX << endl;
+                    // cout << "diff: " << IdiffX << endl;
 
                     // int tabX2 = Idiff/15;
 
