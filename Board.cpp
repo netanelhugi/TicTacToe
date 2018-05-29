@@ -97,6 +97,7 @@ struct RGB {
 string Board::draw(int n){
       const int length = n, width = n;
       string fileName = "TicTacToe-Board.ppm";
+      
 
       ifstream File(fileName);//create new file
         bool fileExist = false;
@@ -127,7 +128,7 @@ string Board::draw(int n){
         }
 
 
-      int strokSize = n/20;//width of the borders   
+        int strokSize = n/20;//width of the borders   
 
         ofstream imageFile(fileName);//create new file
 
@@ -149,44 +150,42 @@ string Board::draw(int n){
             }
         }
 
-        for (int i = n/3-(strokSize/2); i < n/3+(strokSize/2); i++)  {  // row
-            for (int j = 0; j < n; j++) { // column
-            image[n*i+j].red = (256 % 256);
-            image[n*i+j].green = (256 % 256);
-            image[n*i+j].blue = ( 256 % 256);
-            }
-        }
 
-        for (int i = n-(n/3)-(strokSize/2); i < n-(n/3)+(strokSize/2); i++)  {  // row
-            for (int j = 0; j < n; j++) { // column
-            image[n*i+j].red = (256 % 256);
-            image[n*i+j].green = (256 % 256);
-            image[n*i+j].blue = ( 256 % 256);
-            }
-        }
-
-        for (int i = 0; i < n; i++)  {  // row
-            for (int j = n/3-(strokSize/2); j < n/3+(strokSize/2); j++) { // column
-            image[n*i+j].red = (256 % 256);
-            image[n*i+j].green = (256 % 256);
-            image[n*i+j].blue = ( 256 % 256);
-            }
-        }
-
-        for (int i = 0; i < n; i++)  {  // row
-            for (int j = n-(n/3)-(strokSize/2); j < n-(n/3)+(strokSize/2); j++) { // column
-            image[n*i+j].red = (256 % 256);
-            image[n*i+j].green = (256 % 256);
-            image[n*i+j].blue = ( 256 % 256);
-            }
-        }
-
-        //////////draw board - END//////////////////
-
-        //////////draw signs///////////////////////////
-
+        int border = 1;
         int BoardSize0 = size();
-        int loc = n/3;
+        int part = n/BoardSize0;
+
+        while(border<BoardSize0){
+
+            for (int i = (n-part*border)-(strokSize/2); i < (n-part*border)+(strokSize/2); i++)  {  // row
+                for (int j = 0; j < n; j++) {
+                    image[n*i+j].red = (256 % 256);
+                    image[n*i+j].green = (256 % 256);
+                    image[n*i+j].blue = ( 256 % 256);
+                }
+
+            
+            }
+
+            for (int i = 0; i < n; i++)  {  // row
+                for (int j = (n-part*border)-(strokSize/2); j <(n-part*border)+(strokSize/2); j++) { // column
+                image[n*i+j].red = (256 % 256);
+                image[n*i+j].green = (256 % 256);
+                image[n*i+j].blue = ( 256 % 256);
+                }
+            }
+
+            border++;
+
+        }
+
+        
+
+        ////////draw board - END//////////////////
+
+        ////////draw signs///////////////////////////
+
+        int loc = n/BoardSize0;
 
         RGB red{255,17,0};
         RGB whith{255,255,255};
@@ -196,23 +195,23 @@ string Board::draw(int n){
 
                 if(getBoardChar(i,j)=='X'){
 
-                    int lineSize = 10;
-                    int tab = n/12;
+                    int lineSize = n/60;
+                    int tab = n/(BoardSize0*2);
+                    int tabX = n/(BoardSize0*3);
                     int start = loc+tab;
                     int end = loc-tab;
-                    int rows = 100;
+                    int rows = n;
                     int count = 0;
 
+                    for(int l=loc*i+tabX; l<loc*(i+1)-tabX ; l++){
 
-                    for(int l=loc*i+tab; l<loc*(i+1)-tab ; l++){
-
-                        for(int k=loc*j+tab+count; k<loc*j+tab+count+lineSize; k++){
+                        for(int k=loc*j+tabX+count; k<loc*j+tabX+count+lineSize; k++){
                             image[n*l+k].red = (255 % 256);
                             image[n*l+k].green = (255 % 256);
                             image[n*l+k].blue = ( 255 % 256);
                         }
 
-                        for(int k=loc*(j+1)-tab-count; k>loc*(j+1)-tab-count-lineSize; k--){
+                        for(int k=loc*(j+1)-tabX-count; k>loc*(j+1)-tabX-count-lineSize; k--){
                             image[n*l+k].red = (255 % 256);
                             image[n*l+k].green = (255 % 256);
                             image[n*l+k].blue = ( 255 % 256);
@@ -224,8 +223,10 @@ string Board::draw(int n){
 
                 else if(getBoardChar(i,j)=='O'){
 
-                    for(int l=loc*i+50; l<loc*(i+1)-50 ; l++){
-                        for(int k=loc*j+50; k<loc*(j+1)-50; k++){
+                    int tab = n/15;
+
+                    for(int l=loc*i+tab; l<loc*(i+1)-tab ; l++){
+                        for(int k=loc*j+tab; k<loc*(j+1)-tab; k++){
                             image[n*l+k].red = (255 % 256);
                             image[n*l+k].green = (17 % 256);
                             image[n*l+k].blue = ( 0 % 256);

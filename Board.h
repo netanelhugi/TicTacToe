@@ -58,43 +58,60 @@ inline ostream &operator<<(ostream &os, Board const &b)
 inline istream &operator>>(istream  &input, Board &b){
 
 	Board* temp;
-	string name;
-	input >> name;
-
-	ifstream rows(name); 
 	string str;
-	getline(rows, str);
+	input >> str;
+	cout << "str: " << str;
 
-	int n = str.length();
-	cout << "n=" << n << endl;
 
-	char c;
 
-	ifstream file(name); 
+	// int first;
+	// cout << "test1";
 
-	temp = new Board(n);
+	// cout << "first: " << first;
+
+	// cout << "first: " << first << endl;
+	// int firLen = first.length();
+	// cout << "Flen: " << firLen << endl; 
+
+	// string str;
+	// getline(input, str);
+
+	// cout << "str: " << str << endl;
+
+	 
+
+	//ifstream rows(inp); 
+
+	// int n = str.length();
+	// cout << "n=" << n << endl;
+
+	// char c;
+
+	// ifstream file(name); 
+
+	// temp = new Board(n);
 	
 
-	for(int i=0; i<n; i++){
-		for(int j=0; j<=n; j++){
-			c = file.get();
+	// for(int i=0; i<n; i++){
+	// 	for(int j=0; j<=n; j++){
+	// 		c = file.get();
 			
-			if(j!=n){
-				BoardChar bc(c);
-				cout << bc;
+	// 		if(j!=n){
+	// 			BoardChar bc(c);
+	// 			cout << bc;
 				
-				temp->BoardMat[i][j] = bc;
-			}
-			else{
-				cout << endl;
-			}
+	// 			temp->BoardMat[i][j] = bc;
+	// 		}
+	// 		else{
+	// 			cout << endl;
+	// 		}
 
 
-		}
-	}
+	// 	}
+	// }
 
 
-	b = *temp;
+	// b = *temp;
 
 	return input;
 
