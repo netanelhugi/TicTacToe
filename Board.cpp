@@ -300,7 +300,7 @@ void Board::drawO(RGB **image, int n, int i, int j)
     int part = n / boardSize;
 
     int r = (part / 2);
-    cout << "part: " << part << endl;
+    // cout << "part: " << part << endl;
     int Cx = part * i + r;
     int Cy = part * j + r;
     int r2 = r-part/30;
@@ -315,7 +315,7 @@ void Board::drawO(RGB **image, int n, int i, int j)
             yNorm = y - Cy;
             if (xNorm * xNorm + yNorm * yNorm <= r2 * r2)
             {
-            cout << "Xn: " << Cx+xNorm << " Yn: " <<Cy+yNorm << " R: " << r << endl;
+            // cout << "Xn: " << Cx+xNorm << " Yn: " <<Cy+yNorm << " R: " << r << endl;
                 image[Cx+xNorm][Cy+yNorm] = black;
             }
         }
