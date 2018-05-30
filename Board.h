@@ -7,7 +7,7 @@ using namespace std;
 #include "IllegalCoordinateException.h"
 #include "BoardIndex.h"
 #include "BoardChar.h"
-
+#include "RGB.h"
 
 //TicTacToe board
 class Board
@@ -25,16 +25,18 @@ class Board
 	BoardChar operator[](BoardIndex c);
 	char getBoardChar(int i, int j) const;
 	void setSize(int n);
-	int INtest = -1;
-	string draw(int n);
-
+	string draw(int n);//draw the board
+	void drawBorders(RGB** image, int n);
+	void drawX(RGB** image, int n, int i, int j);
+	void drawO(RGB** image, int n, int i, int j);
 
 	//output operator
 	friend ostream &operator<<(ostream &os, Board const &b);
 	//input operator
-	friend istream &operator>>(istream  &input, Board &b);
-
+	friend istream &operator>>(istream &input, Board &b);
 };
+
+
 
 //Board output operator
 inline ostream &operator<<(ostream &os, Board const &b)
@@ -54,27 +56,37 @@ inline ostream &operator<<(ostream &os, Board const &b)
 	return os;
 }
 
+//Board input operator
+/**
+ *this operator get .txt file as input(./a.out < board3.txt)
+ *count the number of signs in row, and create board
+ *the function save the signs from the input in temp
+ *and finally swap between temp and b(board object) 
+ */
+inline istream &operator>>(istream &input, Board &b)
+{
 
-inline istream &operator>>(istream  &input, Board &b){
-
-	Board* temp;
+	Board *temp;
 	string str;
 
 	char sign;
 	int rowSize = 0;
 	bool firstRowItr = true;
 
+	while (input.get(sign))
+	{
 
-	while(input.get(sign)){
-
-		if(sign=='\n'){
-			firstRowItr =false;
+		if (sign == '\n')
+		{
+			firstRowItr = false;
 		}
-		else{
-			str += sign;		
+		else
+		{
+			str += sign;
 		}
 
-		if(firstRowItr){
+		if (firstRowItr)
+		{
 			rowSize++;
 		}
 	}
@@ -82,23 +94,17 @@ inline istream &operator>>(istream  &input, Board &b){
 	temp = new Board(rowSize);
 	int ind = 0;
 
-	for(int i=0; i<rowSize; i++){
-		for(int j=0; j<rowSize; j++){
+	for (int i = 0; i < rowSize; i++)
+	{
+		for (int j = 0; j < rowSize; j++)
+		{
 			BoardChar bc(str[ind++]);
 
 			temp->BoardMat[i][j] = bc;
-
-
 		}
 	}
 
 	b = *temp;
 
 	return input;
-
 }
-
-
-
-
-

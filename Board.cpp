@@ -3,8 +3,9 @@ using namespace std;
 
 #include "Board.h"
 
-Board::Board(){
-   //default constructor
+Board::Board()
+{
+    //default constructor
 }
 
 //constructor, get int(size of the board)
@@ -80,227 +81,245 @@ char Board::getBoardChar(int i, int j) const
     return BoardMat[i][j];
 }
 
-void Board::setSize(int n){
+void Board::setSize(int n)
+{
     boardSize = n;
 }
 
-//represent pixel color
-struct RGB {
-  uint8_t red, green, blue;
-    public:
-    RGB() {}
-    RGB(uint8_t red, uint8_t green, uint8_t blue): red(red), green(green), blue(blue) {}
-};
-
-
 //draw the TicTacToe board into new file
-string Board::draw(int n){
-      const int length = n, width = n;
-      string fileName = "TicTacToe-Board.ppm";
-      
+string Board::draw(int n)
+{
+    const int length = n, width = n;
+    string fileName = "TicTacToe-Board.ppm";
 
-      ifstream File(fileName);//create new file
-        bool fileExist = false;
+    ifstream File(fileName); //create new file
+    bool fileExist = false;
 
-        if(File){
-            fileExist = true;
+    if (File) //check if "fileName" is exist
+    {
+        fileExist = true;
+    }
+
+    int index = 1;
+    /**
+    *if the file name is exist,
+    *the methot add 'i' to the end of the file name
+    *d check again
+    */
+    while (fileExist)
+    {
+
+        fileName = "TicTacToe-Board";
+        fileName += to_string(index);
+        fileName += ".ppm";
+
+        ifstream File(fileName); //create new file
+
+        if (File)
+        {
+            index++;
         }
-
-        int index = 1;
-
-        while(fileExist){
-
-            fileName = "TicTacToe-Board";
-            fileName += to_string(index);
-            fileName += ".ppm";
-
-            ifstream File(fileName);//create new file
-
-            if(File){
-                index++;
-            }
-            else{
-                fileExist=false;
-            }
-
-
+        else
+        {
+            fileExist = false;
         }
+    }
 
+    int strokSize = 2; //width of the borders
 
-        int strokSize = 2;//width of the borders   
+    ofstream imageFile(fileName); //create new file
 
-        ofstream imageFile(fileName);//create new file
+    imageFile << "P6" << endl
+              << length << " " << width << endl
+              << 255 << endl;
 
-        imageFile << "P6" << endl << length <<" " << width << endl << 255 << endl;
+    //crate array of Rgb objects
+    RGB **image;
+    image = new RGB *[n];
 
-        //crate array of Rgb objects
-        RGB image[n*n];
+    RGB red{255, 17, 0};
+    RGB whith{255, 255, 255};
+    RGB blue{0, 125, 255};
 
-        //draw board background
-        for (int i = 0; i < n; i++)  {  
-            for (int j = 0; j < n; j++) { 
-            image[n*i+j].red = (256 % 256);
-            image[n*i+j].green = (125 % 256);
-            image[n*i+j].blue = ( (255) % 256);
-            }
+    for (int i = 0; i < n; i++)
+    {
+        image[i] = new RGB[n];
+        for (int j = 0; j < n; j++)
+        {
+            image[i][j] = blue;
         }
+    }
 
-        int border = 1;
-        int BoardSize0 = size();
-        int part = n/BoardSize0;
+    //draw board borders
+    drawBorders(image, n);
 
+    int BoardSize0 = size();
+    int part = n / BoardSize0;
 
-        //draw board borders
-        while(border<BoardSize0){
+    ////////draw signs///////////////////////////
 
-            for (int i = (n-part*(border))-(strokSize/2); i < (n-part*(border))+(strokSize/2); i++)  {
-                for (int j = 0; j < n; j++) {
-                    image[n*i+j].red = (256 % 256);
-                    image[n*i+j].green = (256 % 256);
-                    image[n*i+j].blue = ( 256 % 256);
-                }
+    // int loc = n / BoardSize0;
+
+    for (int i = BoardSize0 - 1; i >= 0; i--)
+    {
+        for (int j = BoardSize0 - 1; j >= 0; j--)
+        {
+
+            if (getBoardChar(i, j) == 'X')
+            {
+                drawX(image, n, i, j);
             }
 
-            for (int i = 0; i < n; i++)  {
-                for (int j = (n-part*border)-(strokSize/2); j <(n-part*border)+(strokSize/2); j++) {
-                image[n*i+j].red = (256 % 256);
-                image[n*i+j].green = (256 % 256);
-                image[n*i+j].blue = ( 256 % 256);
-                }
+            else if (getBoardChar(i, j) == 'O')
+            {
+                drawO(image, n, i, j);
             }
+            //     int Jstart = (n - part * (BoardSize0 - j)) + (strokSize / 2);
+            //     int Jend = (n - part * (BoardSize0 - j - 1)) - (strokSize / 2);
+            //     int Jdiff = Jend - Jstart;
 
-            border++;
+            //     int Istart = (n - part * (BoardSize0 - i)) + (strokSize / 2);
+            //     int Iend = (n - part * (BoardSize0 - i - 1)) - (strokSize / 2);
+            //     int Idiff = Iend - Istart;
 
+            //     int tab = Idiff / 15;
+
+            //     //DRAW 'O'
+            //     //The function draws a red square in the file as 'O'
+            //     for (int l = Iend - strokSize - tab; l >= Istart + strokSize + tab; l--)
+            //     {
+            //         for (int k = Jend - strokSize - tab; k >= Jstart + strokSize + tab; k--)
+            //         {
+            //             image[n * l + k].red = (255 % 256);
+            //             image[n * l + k].green = (17 % 256);
+            //             image[n * l + k].blue = (0 % 256);
+            //         }
+            //     }
+            // }
         }
-        ////////draw board - END//////////////////
+    }
 
-
-
-        ////////draw signs///////////////////////////
-
-        int loc = n/BoardSize0;
-
-        RGB red{255,17,0};
-        RGB whith{255,255,255};
-
-        for(int i=BoardSize0-1; i>=0; i--){
-            for(int j=BoardSize0-1; j>=0; j--){
-
-                if(getBoardChar(i,j)=='X'){
-
-                    // cout << "i= " << i << " j= " << j << endl;
-
-                    int JstartX = (n-part*(BoardSize0-j))+(strokSize/2);
-                    // cout << "Jstart: " <<JstartX << endl;
-                    int JendX = (n-part*(BoardSize0-j-1))-(strokSize/2);
-                    // cout << "Jend: " <<JendX<< endl;
-// 
-                    int JdiffX = JendX-JstartX;
-                    // cout << "diff: " << JdiffX << endl;
-
-
-                    int IstartX = (n-part*(BoardSize0-i))+(strokSize/2);
-                    // cout << "Istart: " <<IstartX << endl;
-                    int IendX = (n-part*(BoardSize0-i-1))-(strokSize/2);
-                    // cout << "Iend: " <<IendX<< endl;
-
-                    int IdiffX = IendX-IstartX;
-                    // cout << "diff: " << IdiffX << endl;
-
-                    // int tabX2 = Idiff/15;
-
-
-                    int lineSize = 3;
-                    int tab =0;
-                    int tabX = n/(BoardSize0*3);
-                    int start = loc+tab;
-                    int end = loc-tab;
-                    int rows = n;
-                    int count = 0;
-                    int counter = 0;
-
-                    for(int l=IstartX+tab+1; l<IendX-tab-1; l++){
-
-                        for(int k=JstartX+count+1; k<JstartX+count+lineSize; k++){
-                            image[n*l+k].red = (255 % 256);
-                            image[n*l+k].green = (255 % 256);
-                            image[n*l+k].blue = ( 255 % 256);
-                        }
-
-                        for(int k=JendX-count-1; k>JendX-count-lineSize; k--){
-                            image[n*l+k].red = (255 % 256);
-                            image[n*l+k].green = (255 % 256);
-                            image[n*l+k].blue = ( 255 % 256);
-                        }
-
-                        
-                        // if(counter%2==0){
-                        //     count+=1;
-                        // }
-                        count++;
-                    }
-
-                }
-
-                else if(getBoardChar(i,j)=='O'){
-
-                    // cout << "i= " << i << " j= " << j << endl;
-
-
-                    int Jstart = (n-part*(BoardSize0-j))+(strokSize/2);
-                    // cout << "start: " <<Jstart << endl;
-                    int Jend = (n-part*(BoardSize0-j-1))-(strokSize/2);
-                    // cout << "end: " <<Jend<< endl;
-
-                    int Jdiff = Jend-Jstart;
-                    // cout << "diff: " << Jdiff << endl;
-
-
-                    // cout << "//////////IIIIIIIIII//////////" << endl;
-
-
-                    int Istart = (n-part*(BoardSize0-i))+(strokSize/2);
-                    // cout << "start: " <<Istart << endl;
-                    int Iend = (n-part*(BoardSize0-i-1))-(strokSize/2);
-                    // cout << "end: " <<Iend<< endl;
-
-                    int Idiff = Iend-Istart;
-                    // cout << "diff: " << Idiff << endl;
-
-                    int tab = Idiff/15;
-                    
-
-                        for(int l=Iend-strokSize-tab; l>=Istart+strokSize+tab; l--){
-                        for(int k=Jend-strokSize-tab; k>=Jstart+strokSize+tab; k--){
-                            image[n*l+k].red = (255 % 256);
-                            image[n*l+k].green = (17 % 256);
-                            image[n*l+k].blue = ( 0 % 256);
-                        }
-                    }
-
-                    
-
-            
-
-                    
-
-                }
-
-            }
+    ///
+    ///image processing
+    ///
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; ++j)
+        {
+            imageFile.write(reinterpret_cast<char *>(&image[i][j]), 3);
         }
+    }
 
-        ///
-        ///image processing
-        /// 
-        imageFile.write(reinterpret_cast<char*>(&image), 3*n*n);
+    imageFile.close();
 
-
-    
-        imageFile.close();
-  
-
-    return fileName; 
-
+    return fileName;
 }
 
+void Board::drawBorders(RGB **image, int n)
+{
 
+    int border = 1;
+    int BoardSize0 = size();
+    int part = n / BoardSize0;
+    int strokSize = 2; //width of the borders
+    RGB black{255, 0, 0};
+    RGB whith{255, 255, 255};
+    RGB blue{0, 125, 255};
+
+    //draw board borders
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < 1; j++)
+        {
+            image[i][j] = black;
+            image[j][i] = black;
+        }
+    }
+
+    while (border < BoardSize0)
+    {
+
+        for (int i = (n - part * (border)) - (strokSize / 2); i < (n - part * (border)) + (strokSize / 2); i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                image[i][j] = black;
+            }
+        }
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = (n - part * border) - (strokSize / 2); j < (n - part * border) + (strokSize / 2); j++)
+            {
+                image[i][j] = black;
+            }
+        }
+
+        border++;
+    }
+}
+
+void Board::drawX(RGB **image, int n, int i, int j)
+{
+    RGB black{0, 0, 0};
+
+    int part = n / boardSize;
+
+    int JstartX = (n - part * (boardSize - j)) + 1;
+    int JendX = (n - part * (boardSize - j - 1)) - 1;
+    int JdiffX = JendX - JstartX;
+
+    int IstartX = (n - part * (boardSize - i)) + 1;
+    // cout << "Istart: " << IstartX << endl;
+    int IendX = (n - part * (boardSize - i - 1)) - 1;
+    // cout << "Iend: " << IendX << endl;
+    int IdiffX = IendX - IstartX;
+
+    int lineSize = 3; //size of 'X'
+    int count = 0;
+
+    for (int l = IstartX + 1; l < IendX - 1; l++)
+    {
+
+        for (int k = JstartX + count + 1; k < JstartX + count + lineSize; k++)
+        {
+            image[l][k] = black;
+        }
+
+        for (int k = JendX - count - 1; k > JendX - count - lineSize; k--)
+        {
+            image[l][k] = black;
+        }
+        count++;
+    }
+}
+
+void Board::drawO(RGB **image, int n, int i, int j)
+{
+    RGB black{255, 255, 0};
+    int part = n / boardSize;
+
+    int r = (part / 2);
+    cout << "part: " << part << endl;
+    int Cx = part * i + r;
+    int Cy = part * j + r;
+    int r2 = r-part/30;
+    int xNorm;
+    int yNorm;
+
+    for (int y = Cy - r2; y <= Cy + r2; y++)
+    {
+        for (int x = Cx - r2; x <= Cx + r2; x++)
+        {
+            xNorm = x - Cx;
+            yNorm = y - Cy;
+            if (xNorm * xNorm + yNorm * yNorm <= r2 * r2)
+            {
+            cout << "Xn: " << Cx+xNorm << " Yn: " <<Cy+yNorm << " R: " << r << endl;
+                image[Cx+xNorm][Cy+yNorm] = black;
+            }
+        }
+
+    }
+
+}
