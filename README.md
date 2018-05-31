@@ -1,6 +1,6 @@
 # TicTacToe
 
 
-Assignment 6&7 
+Assignment 6-8
 
 C++ Course

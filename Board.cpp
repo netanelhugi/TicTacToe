@@ -189,6 +189,14 @@ string Board::draw(int n)
 
     imageFile.close();
 
+    //free memory
+    for (int i = 0; i < n; i++)
+    {
+        delete[] image[i];
+    }
+    delete[] image;
+
+    
     return fileName;
 }
 
