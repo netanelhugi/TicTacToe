@@ -150,16 +150,15 @@ string Board::draw(int n)
         }
     }
 
-    //draw board borders
+    //draw board lines
     drawBorders(image, n);
 
     int BoardSize0 = size();
     int part = n / BoardSize0;
 
-    ////////draw signs///////////////////////////
-
-    // int loc = n / BoardSize0;
-
+    /*
+    *Draw Board signs
+    */
     for (int i = BoardSize0 - 1; i >= 0; i--)
     {
         for (int j = BoardSize0 - 1; j >= 0; j--)
@@ -174,28 +173,6 @@ string Board::draw(int n)
             {
                 drawO(image, n, i, j);
             }
-            //     int Jstart = (n - part * (BoardSize0 - j)) + (strokSize / 2);
-            //     int Jend = (n - part * (BoardSize0 - j - 1)) - (strokSize / 2);
-            //     int Jdiff = Jend - Jstart;
-
-            //     int Istart = (n - part * (BoardSize0 - i)) + (strokSize / 2);
-            //     int Iend = (n - part * (BoardSize0 - i - 1)) - (strokSize / 2);
-            //     int Idiff = Iend - Istart;
-
-            //     int tab = Idiff / 15;
-
-            //     //DRAW 'O'
-            //     //The function draws a red square in the file as 'O'
-            //     for (int l = Iend - strokSize - tab; l >= Istart + strokSize + tab; l--)
-            //     {
-            //         for (int k = Jend - strokSize - tab; k >= Jstart + strokSize + tab; k--)
-            //         {
-            //             image[n * l + k].red = (255 % 256);
-            //             image[n * l + k].green = (17 % 256);
-            //             image[n * l + k].blue = (0 % 256);
-            //         }
-            //     }
-            // }
         }
     }
 
@@ -222,18 +199,17 @@ void Board::drawBorders(RGB **image, int n)
     int BoardSize0 = size();
     int part = n / BoardSize0;
     int strokSize = 2; //width of the borders
-    RGB black{255, 0, 0};
+    RGB red{255, 0, 0};
     RGB whith{255, 255, 255};
     RGB blue{0, 125, 255};
 
     //draw board borders
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < 1; j++)
-        {
-            image[i][j] = black;
-            image[j][i] = black;
-        }
+        image[i][0] = red;
+        image[0][i] = red;
+        image[i][n - 1] = red;
+        image[n - 1][i] = red;
     }
 
     while (border < BoardSize0)
@@ -243,7 +219,7 @@ void Board::drawBorders(RGB **image, int n)
         {
             for (int j = 0; j < n; j++)
             {
-                image[i][j] = black;
+                image[i][j] = red;
             }
         }
 
@@ -251,7 +227,7 @@ void Board::drawBorders(RGB **image, int n)
         {
             for (int j = (n - part * border) - (strokSize / 2); j < (n - part * border) + (strokSize / 2); j++)
             {
-                image[i][j] = black;
+                image[i][j] = red;
             }
         }
 
@@ -262,21 +238,16 @@ void Board::drawBorders(RGB **image, int n)
 void Board::drawX(RGB **image, int n, int i, int j)
 {
     RGB black{0, 0, 0};
-
     int part = n / boardSize;
 
     int JstartX = (n - part * (boardSize - j)) + 1;
     int JendX = (n - part * (boardSize - j - 1)) - 1;
-    int JdiffX = JendX - JstartX;
 
     int IstartX = (n - part * (boardSize - i)) + 1;
-    // cout << "Istart: " << IstartX << endl;
     int IendX = (n - part * (boardSize - i - 1)) - 1;
-    // cout << "Iend: " << IendX << endl;
-    int IdiffX = IendX - IstartX;
 
-    int lineSize = 3; //size of 'X'
-    int count = 0;
+    int lineSize = 3; //width of 'x'
+    int count = 0;    //"tab"
 
     for (int l = IstartX + 1; l < IendX - 1; l++)
     {
@@ -296,14 +267,14 @@ void Board::drawX(RGB **image, int n, int i, int j)
 
 void Board::drawO(RGB **image, int n, int i, int j)
 {
-    RGB black{255, 255, 0};
+    RGB yellow{255, 255, 0};
     int part = n / boardSize;
 
     int r = (part / 2);
-    // cout << "part: " << part << endl;
     int Cx = part * i + r;
     int Cy = part * j + r;
-    int r2 = r-part/30;
+    int r2 = r - part / 30; //outside line limit of 'O'
+    int r3 = r2 * 0.9;      //inside line limit of 'O'
     int xNorm;
     int yNorm;
 
@@ -313,13 +284,10 @@ void Board::drawO(RGB **image, int n, int i, int j)
         {
             xNorm = x - Cx;
             yNorm = y - Cy;
-            if (xNorm * xNorm + yNorm * yNorm <= r2 * r2)
+            if ((xNorm * xNorm + yNorm * yNorm <= r2 * r2) && (xNorm * xNorm + yNorm * yNorm >= r3 * r3))
             {
-            // cout << "Xn: " << Cx+xNorm << " Yn: " <<Cy+yNorm << " R: " << r << endl;
-                image[Cx+xNorm][Cy+yNorm] = black;
+                image[Cx + xNorm][Cy + yNorm] = yellow;
             }
         }
-
     }
-
 }
