@@ -4,7 +4,7 @@ using namespace std;
 #include "Board.h"
 
 Board::Board()
-{
+{BoardMat
     //default constructor
 }
 
@@ -26,12 +26,12 @@ Board::Board(int n)
 // //destractor
 Board::~Board()
 {
-    //free memory
-    for (int i = 0; i < boardSize; i++)
-    {
-        delete[] BoardMat[i];
-    }
-    delete[] BoardMat;
+    // //free memory
+    // for (int i = 0; i < boardSize; i++)
+    // {
+    //     delete[] BoardMat[i];
+    // }
+    // delete[] BoardMat;
 }
 
 //getSize
