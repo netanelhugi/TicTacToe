@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include <string.h>
 using namespace std;
 
 #include "IllegalCharException.h"
@@ -25,18 +26,18 @@ class Board
 	BoardChar operator[](BoardIndex c);
 	char getBoardChar(int i, int j) const;
 	void setSize(int n);
-	string draw(int n);//draw the board
-	void drawBorders(RGB** image, int n);
-	void drawX(RGB** image, int n, int i, int j);
-	void drawO(RGB** image, int n, int i, int j);
+	string draw(int n); //draw the board
+	void drawBorders(RGB **image, int n);
+	void drawX(RGB **image, int n, int i, int j);
+	void drawO(RGB **image, int n, int i, int j);
 
 	//output operator
 	friend ostream &operator<<(ostream &os, Board const &b);
 	//input operator
 	friend istream &operator>>(istream &input, Board &b);
+	//== operator
+	friend bool operator==(const Board &b, string s);
 };
-
-
 
 //Board output operator
 inline ostream &operator<<(ostream &os, Board const &b)
@@ -107,4 +108,22 @@ inline istream &operator>>(istream &input, Board &b)
 	b = *temp;
 
 	return input;
+}
+
+inline bool operator==(const Board &b, string s)
+{
+
+	string str = "";
+
+	for (int i = 0; i < b.size(); i++)
+	{
+		for (int j = 0; j < b.size(); j++)
+		{
+			str += b.getBoardChar(i, j);
+		}
+	}
+
+	int i = str.compare(s);
+
+	return i;
 }
