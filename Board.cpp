@@ -27,11 +27,11 @@ Board::Board(int n)
 Board::~Board()
 {
     //free memory
-    for (int i = 0; i < boardSize; i++)
-    {
-        delete[] BoardMat[i];
-    }
-    delete[] BoardMat;
+    // for (int i = 0; i < boardSize; i++)
+    // {
+    //     delete[] BoardMat[i];
+    // }
+    // delete[] BoardMat;
 }
 
 //getSize
