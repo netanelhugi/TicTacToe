@@ -26,7 +26,7 @@ Board::Board(int n)
 // //destractor
 Board::~Board()
 {
-    free memory
+    //free memory
     for (int i = 0; i < boardSize; i++)
     {
         delete[] BoardMat[i];
