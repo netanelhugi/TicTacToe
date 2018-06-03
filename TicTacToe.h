@@ -15,6 +15,7 @@ class TicTacToe {
 
 	public:
 	TicTacToe(int n);//constructor
+	~TicTacToe();
 	void play(Player& pX, Player& pO);
 	const Board& board() const;//get the board
 	const Player& winner() const;//get the winner
