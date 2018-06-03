@@ -12,9 +12,9 @@ TicTacToe::TicTacToe(int n): gameBoard(n), Pwinner(nullptr) {
 			this->size = n;
 }
 
-TicTacToe::~TicTacToe(){
-	gameBoard.~Board();
-}
+// TicTacToe::~TicTacToe(){
+// 	gameBoard.~Board();
+// }
 
 //game between two players
 void TicTacToe::play(Player& pX, Player& pO) {
